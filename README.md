@@ -6,7 +6,7 @@ The project uses vanilla HTML, CSS, and JavaScript to showcase widget configurat
 
 ## Live Demo
 
-https://kashish-dev-101.github.io/ImageKit-Embeddable-Media-Library-widget
+https://kashish-dev-101.github.io/ImageKit-Embeddable-Media-Library-widget/widget.html
 
 ## Overview
 
