@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ImageKit Media Library Widget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="widget.css" />
+  </head>
+
+  <body>
+    <h1 class="text-center">ImageKit Media Library Widget</h1>
+    <!-- Inset Media Library -->
+    <div class="wrapper">
+      <div id="container"></div>
+    </div>
+    <script src="https://unpkg.com/imagekit-media-library-widget/dist/imagekit-media-library-widget.min.js"></script>
+
+    <script>
+      // fucntion to add Image Element to the page
+      const renderImage = (payload) => {
+        //console.log(payload);
+        console.log(payload.data[0]);
+        for (let image of payload.data) {
+          //console.log(image);
+          console.log(image.url);
+          const imageElement = document.createElement("img");
+          imageElement.src = `${image.url}&tr=w-300,h-300`;
+          const imageContainer = document.createElement("div");
+          imageContainer.className = "image-container";
+          imageContainer.append(imageElement);
+          document.body.append(imageContainer);
+        }
+      };
+
+      // imagekit media library widget configuration
+      var pluginOptions = {
+        container: "#container", // the element in which the Media Library Widget will be rendered
+        className: "media-library-widget", // optional, custom class name for the Media Library Widget to define the style
+        dimensions: {
+          // Dimensions of the Media Library container element.
+          height: "100%",
+          width: "100%",
+        },
+        view: "modal", // inline | modal (default)
+        renderOpenButton: "true", // false | true (default) this is set to false when view is inline
+
+        mlSettings: {
+          // optional
+          initialView: {
+            // sets initial state of Media Library, refer to the ImageKit Docs for more information
+            // https://docs.imagekit.io/sample-projects/embeddable-media-library-widget
+            // only one of the following parameters can be passed at a time
+            //folderPath: "/", // for opening specific folder
+            //fileId: "69390eb65c7cd75eb8ea0307", // for opening specific file
+            //searchQuery: '(name : "ashish")', // for opening search results
+            // collection: {
+            //   //pass empty object to open Media Collections page
+            //   id: "67da58f23c32d42d39c07498", // open specific Media Collection
+            // },
+            //fileType: "images" | "videos" | "cssJs" | "others"
+          },
+          multiple: true, // false | true (default)
+          maxFiles: 20, // relevant when `multiple` is true this sets the maximum number of files that can be selected
+          toolbar: {
+            // sets the visibility of the toolbar buttons
+            // defaults to true for all buttons
+            showCloseButton: true,
+            showInsertButton: true,
+          },
+          // queryParams: {
+          //   // Add custom query parameters to the Media Library widget URL
+          //   // These will be appended to the final URL as query parameters
+          //   customParam1: "value1",
+          //   customParam2: 123,
+          //   customParam3: true,
+          // },
+          // loginViaSSO: true, // to automatically initiate Single Sign-On (SSO) login by default
+          // widgetImagekitId: "Kashish12345", // the ImageKit ID used to authenticate and open the Media Library
+        },
+      };
+
+      const callback = (payload) => {
+        console.log(payload);
+        if (payload.eventType === "INSERT" && Array.isArray(payload.data)) {
+          renderImage(payload);
+        }
+      };
+
+      // initialize imagekit media library widget
+      var mediaLibraryWidget = new IKMediaLibraryWidget(
+        pluginOptions,
+        callback
+      );
+    </script>
+  </body>
+</html>
