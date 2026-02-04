@@ -1,76 +1,146 @@
-# ImageKit Embeddable Media Library Widget
+# ImageKit Media Library Widget Demo
 
-This repository contains a demo implementation of the ImageKit Embeddable Media Library Widget. It demonstrates how to integrate ImageKit DAM into a web application to browse, select, and insert media assets using a clean and minimal setup.
-
-The project uses vanilla HTML, CSS, and JavaScript to showcase widget configuration, asset selection handling, and dynamic rendering of selected images.
+Embed ImageKit's [Media Library](https://imagekit.io/docs/dam/embeddable-media-library-widget) into your web application. Browse, search, and select assets without leaving your app.
 
 ## Live Demo
 
-https://kashish-dev-101.github.io/ImageKit-Embeddable-Media-Library-widget
+**[Try it here →](https://kashish-dev-101.github.io/ImageKit-Embeddable-Media-Library-widget)**
 
-## Overview
+## What is This?
 
-The ImageKit Embeddable Media Library Widget allows applications to embed ImageKit DAM directly into their interface. Users can browse folders, search assets, select single or multiple files, and insert them into the application using a callback driven workflow.
+The Media Library Widget lets you integrate ImageKit's Digital Asset Management (DAM) into any web app. Users can:
 
-This project focuses on demonstrating core widget capabilities in a simple and understandable way.
+- Browse folders and collections
+- Search for assets
+- Select single or multiple files
+- Insert them into your application
 
-## Features
+No backend required - it's a pure frontend solution.
 
-• Modal based Media Library integration  
-• Multiple asset selection support  
-• Insert event handling using widget callbacks  
-• Dynamic image rendering after selection  
-• Runtime ImageKit transformations for optimization  
-• Minimal and responsive layout  
+## Quick Start
 
-## Technology Stack
+### 1. Add the Script
 
-• HTML  
-• CSS  
-• JavaScript  
-• ImageKit Media Library Widget  
+```html
+<script src="https://unpkg.com/imagekit-media-library-widget/dist/imagekit-media-library-widget.min.js"></script>
+```
 
-## Implementation Details
+### 2. Create a Container
 
-### Widget Initialization
+```html
+<div id="container"></div>
+```
 
-The Media Library Widget is loaded using the official ImageKit CDN and initialized with configurable options such as container, view type, selection behavior, and toolbar visibility.
+### 3. Initialize the Widget
 
-The widget opens in modal view and renders inside a defined container element.
+```javascript
+const config = {
+  container: "#container",
+  view: "modal",
+  renderOpenButton: true,
+  mlSettings: {
+    multiple: true,
+    maxFiles: 10,
+  },
+};
 
-### Asset Selection Handling
+function callback(payload) {
+  if (payload.eventType === "INSERT") {
+    console.log("Selected files:", payload.data);
+  }
+}
 
-When the user clicks the Insert button, the widget triggers a callback event. The callback listens for the INSERT event type and receives the selected assets as payload data.
+const widget = new IKMediaLibraryWidget(config, callback);
+```
 
-Each selected asset is processed and rendered dynamically on the page.
+That's it! Click the button and start selecting assets.
 
-### Image Optimization
+## Using the `open()` Method
 
-Selected images are rendered using ImageKit URLs with transformations applied at runtime. This ensures optimized delivery and consistent dimensions across all rendered assets.
+For custom buttons with different behaviors:
 
-Example transformations include resizing images to fixed width and height for uniform display.
+```javascript
+// Initialize without default button
+const widget = new IKMediaLibraryWidget({
+  container: "#container",
+  renderOpenButton: false,
+}, callback);
 
+// Custom button - opens filtered to images only
+document.getElementById("pickImages").addEventListener("click", () => {
+  widget.open({
+    mlSettings: {
+      initialView: { fileType: "images" },
+      multiple: true,
+      maxFiles: 5,
+    },
+  });
+});
+```
 
-## Usage Scenarios
+## Configuration Options
 
-This implementation can be used as a reference for:
+| Option | Type | Description |
+|--------|------|-------------|
+| `container` | string | CSS selector for widget container |
+| `view` | `"modal"` or `"inline"` | How the widget displays |
+| `renderOpenButton` | boolean | Show/hide default button |
+| `mlSettings.multiple` | boolean | Allow multiple selection |
+| `mlSettings.maxFiles` | number | Max selectable files |
+| `mlSettings.initialView` | object | Open in specific state |
 
-• CMS image selection workflows  
-• Admin dashboards  
-• Blog editors  
-• Digital asset management tools  
-• Internal content platforms  
+### initialView Options
 
-## Documentation Reference
+```javascript
+initialView: { folderPath: "/marketing" }     // Open specific folder
+initialView: { fileType: "images" }           // Filter by type
+initialView: { searchQuery: 'name: "logo"' }  // Pre-filtered search
+initialView: { collection: { id: "abc123" } } // Open collection
+```
 
-For complete configuration options and advanced usage, refer to the official ImageKit documentation:
+## Callback Payload
 
-https://imagekit.io/docs/dam/embeddable-media-library-widget
+When users click "Insert":
 
+```javascript
+{
+  eventType: "INSERT",
+  data: [
+    {
+      fileId: "abc123",
+      name: "image.jpg",
+      url: "https://ik.imagekit.io/your_id/image.jpg",
+      filePath: "/folder/image.jpg",
+      fileType: "image"
+    }
+  ]
+}
+```
 
+## Project Files
 
+```
+├── widget.html   # Demo page
+├── widget.css    # Styles
+└── README.md
+```
 
+## Use Cases
 
+- **CMS Integration** - Let editors pick images without leaving the editor
+- **Admin Dashboards** - Manage media assets inline
+- **E-commerce** - Select product images
+- **Blog Platforms** - Insert images into posts
 
+## Resources
 
+- [Widget Documentation](https://imagekit.io/docs/dam/embeddable-media-library-widget)
+- [ImageKit Dashboard](https://imagekit.io/dashboard)
 
+## License
+
+ISC
+
+---
+
+Developed by **Ashish**
