@@ -15,6 +15,8 @@
     <!-- Inset Media Library -->
     <div class="wrapper">
       <div id="container"></div>
+      <!-- Custom button using open() method -->
+      <button id="pickImagesOnly" class="custom-btn">Pick Images Only</button>
     </div>
     <script src="https://unpkg.com/imagekit-media-library-widget/dist/imagekit-media-library-widget.min.js"></script>
 
@@ -94,6 +96,18 @@
         pluginOptions,
         callback
       );
+
+      // Custom button using open() method
+      // This demonstrates how to programmatically open the widget with different settings
+      document.getElementById("pickImagesOnly").addEventListener("click", () => {
+        mediaLibraryWidget.open({
+          mlSettings: {
+            initialView: { fileType: "images" }, // Only show images
+            multiple: true,
+            maxFiles: 5,
+          },
+        });
+      });
     </script>
   </body>
 </html>

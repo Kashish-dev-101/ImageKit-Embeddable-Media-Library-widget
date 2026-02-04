@@ -29,8 +29,7 @@
 
 /* Button container */
 #container {
-  margin-top: 20px;
-  padding-left: 20px; /* keep button aligned with heading */
+  display: inline-block;
 }
 
 /* Style the injected button */
@@ -69,4 +68,31 @@
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+/* Wrapper for buttons */
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  margin-top: 20px;
+}
+
+/* Custom button using open() method */
+.custom-btn {
+  background-color: #10b981;
+  color: white;
+  padding: 10px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #059669;
 }
