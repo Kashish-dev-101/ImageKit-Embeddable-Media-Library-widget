@@ -4,11 +4,11 @@ Embed ImageKit's [Media Library](https://imagekit.io/docs/dam/embeddable-media-l
 
 ## Live Demo
 
-**[Try it here →](https://kashish-dev-101.github.io/ImageKit-Embeddable-Media-Library-widget)**
+**[Try it here →](https://kashish-dev-101.github.io/ImageKit-Embeddable-Media-Library-widget/widget.html)**
 
 ## What is This?
 
-The Media Library Widget lets you integrate ImageKit's Digital Asset Management (DAM) into any web app. Users can:
+The Media Library Widget lets you integrate ImageKit's [Digital Asset Management (DAM)](https://imagekit.io/docs/dam/overview) into any web app. Users can:
 
 - Browse folders and collections
 - Search for assets
@@ -134,7 +134,7 @@ When users click "Insert":
 
 ## Resources
 
-- [Widget Documentation](https://imagekit.io/docs/dam/embeddable-media-library-widget)
+- [ImageKit Embeddable Media Library Widget Documentation](https://imagekit.io/docs/dam/embeddable-media-library-widget)
 - [ImageKit Dashboard](https://imagekit.io/dashboard)
 
 ## License
@@ -142,5 +142,3 @@ When users click "Insert":
 ISC
 
 ---
-
-Developed by **Ashish**
