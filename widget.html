@@ -24,10 +24,10 @@
       // fucntion to add Image Element to the page
       const renderImage = (payload) => {
         //console.log(payload);
-        console.log(payload.data[0]);
+        //console.log(payload.data[0]);
         for (let image of payload.data) {
           //console.log(image);
-          console.log(image.url);
+          //console.log(image.url);
           const imageElement = document.createElement("img");
           imageElement.src = `${image.url}&tr=w-300,h-300`;
           const imageContainer = document.createElement("div");
@@ -47,13 +47,13 @@
           width: "100%",
         },
         view: "modal", // inline | modal (default)
-        renderOpenButton: "true", // false | true (default) this is set to false when view is inline
+        renderOpenButton: true, // false | true (default) this is set to false when view is inline
 
         mlSettings: {
           // optional
           initialView: {
             // sets initial state of Media Library, refer to the ImageKit Docs for more information
-            // https://docs.imagekit.io/sample-projects/embeddable-media-library-widget
+            // https://imagekit.io/docs/dam/embeddable-media-library-widget
             // only one of the following parameters can be passed at a time
             //folderPath: "/", // for opening specific folder
             //fileId: "69390eb65c7cd75eb8ea0307", // for opening specific file
@@ -85,7 +85,7 @@
       };
 
       const callback = (payload) => {
-        console.log(payload);
+        //console.log(payload);
         if (payload.eventType === "INSERT" && Array.isArray(payload.data)) {
           renderImage(payload);
         }
