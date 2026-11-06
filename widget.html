@@ -92,7 +92,9 @@
           const imageContainer = document.createElement("div");
           imageContainer.className = "image-container";
           const img = document.createElement("img");
-          img.src = `${image.url}&tr=w-300,h-300`;
+          // add "?" or "&" depending on whether the URL already has a query string
+          const sep = image.url.includes("?") ? "&" : "?";
+          img.src = `${image.url}${sep}tr=w-300,h-300`;
           imageContainer.appendChild(img);
           grid.appendChild(imageContainer);
         }
@@ -108,7 +110,7 @@
           width: "100%",
         },
         view: "modal", // inline | modal (default)
-        renderOpenButton: true, // false | true (default) — kept true for widget initialization
+        renderOpenButton: false, // false | true (default) — false because the custom buttons below open the widget via open()
 
         mlSettings: {
           // optional
@@ -129,9 +131,9 @@
           maxFiles: 20, // relevant when `multiple` is true this sets the maximum number of files that can be selected
           toolbar: {
             // sets the visibility of the toolbar buttons
-            // defaults to true for all buttons
-            showCloseButton: true,
-            showInsertButton: true,
+            showCloseButton: true, // default: true
+            showInsertButton: true, // default: true
+            showAccountSwitcher: false, // default: false — shows "Switch account" only if the user has access to more than one ImageKit account; hidden when widgetImagekitId is set or a signed login link is used
           },
           // queryParams: {
           //   // Add custom query parameters to the Media Library widget URL
@@ -141,7 +143,7 @@
           //   customParam3: true,
           // },
           // loginViaSSO: true, // to automatically initiate Single Sign-On (SSO) login by default
-          // widgetImagekitId: "Kashish12345", // the ImageKit ID used to authenticate and open the Media Library
+          // widgetImagekitId: "Kashish12345", // the ImageKit ID used to authenticate and open the Media Library; when set, the widget stays on this account and "Switch account" is not shown
         },
       };
 
@@ -164,13 +166,16 @@
       });
 
       // Pick Images Only button using open() method
-      // This demonstrates how to programmatically open the widget with different settings
+      // This demonstrates how to programmatically open the widget with different settings.
+      // mlSettings passed to open() REPLACE the constructor's mlSettings (no merge),
+      // so every setting we want to keep (e.g. toolbar) must be repeated here.
       document.getElementById("pickImagesOnly").addEventListener("click", () => {
         mediaLibraryWidget.open({
           mlSettings: {
             initialView: { fileType: "images" }, // Only show images
             multiple: true,
             maxFiles: 5,
+            toolbar: pluginOptions.mlSettings.toolbar, // keep the same toolbar as the constructor
           },
         });
       });
